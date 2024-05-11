@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle,
+            rgba(238, 174, 202, 1) 0%,
+            rgba(240, 255, 220, 1) 100%);
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: rgb(207, 156, 119);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 56px;
+    font-weight: 600;
+}
+
+/* Контейнер игрового поля */
+#gameBoard {
+    /* Используем сетку */
+    display: grid;
+    /* 3 столбца по 150px */
+    grid-template-columns: repeat(3, 150px);
+    /* 3 строки по 150px */
+    grid-template-rows: repeat(3, 150px);
+    /* промежуток между ячейками */
+    gap: 10px;
+}
+
+/* Ячейка игрового поля */
+.cell {
+    border: 2px dashed rgb(218, 144, 172);
+    font-size: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* сообщение */
+p {
+    text-align: center;
+    font-size: 34px;
+    color: rgb(189, 134, 95);
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 600;
+}
+
+.cell[data-value="✕"] {
+    color: rgb(200, 244, 255);
+}
+
+.cell[data-value="◯"] {
+    color: rgb(218, 252, 174);
+}
