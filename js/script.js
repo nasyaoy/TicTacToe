@@ -1,5 +1,6 @@
 // начинает игрок ✕
 let currentPlayer = '✕';
+let currentBot = '◯'
 // Устанавливает начальное значение переменной, которая показывает, завершена ли игра
 let gameEnded = false;
 // Создаем пустое поле для игры
@@ -42,8 +43,56 @@ function cellClicked(cellIndex) {
     }
 }
 
+function emptySquares() {
+    return isBoardFull.filters(s => typeof s == 'number')
+}
+
 // Функция бота
-function botMove() {
+function bot(newBoard, player) {
+    let availSpots = emptySquares();
+    if (checkWinner(newBoard, currentBot)) {
+        return { score: 10 };
+    } else if (availSpots.lenght === 0) {
+        return { score: 0 };
+    }
+
+    let moves = [];
+    for (let i = 0; i < availSpots.lenght; i++) {
+        let move = {};
+        move.cellIndex = newBoard[availSpots[i]];
+        newBoard[availSpots[i]] = player;
+
+        if (player == currentBot) {
+            let result = bot(newBoard, currentPlayer);
+            move.score = result.score;
+        } else {
+            let result = bot(newBoard, currentPlayer);
+            move.score = result.score;
+        }
+
+        newBoard[availSpots[i]] = move.cellIndex;
+        moves.push(move);
+    }
+
+    let bestMove;
+    if (player === currentBot) {
+        let bestScore = -10000;
+        for (let i = 0; i < moves.lenght; i++) {
+            if (moves[i].score > bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    } else {
+        let bestScore = 10000;
+        for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score > bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    }
+    return moves[bestMove]
 }
 
 // Функцияб которая проверяетб выйграл ли игрок
